@@ -21,7 +21,13 @@ body {
   min-height: 100vh;
 }
 
+h2 {
+  font-size: 1.65rem;
+  font-weight: 400;
+}
+
 #app-container {
+  box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
   display: flex;
   max-width: 1400px;
   margin: 0 auto;
@@ -31,6 +37,7 @@ body {
 #finding-centroids-legend {
   display: flex;
   flex-direction: column;
+  justify-content: center;
   text-align: left;
   padding: 2rem;
   min-width: 400px;
@@ -41,9 +48,14 @@ body {
 
 #graphset-info-list {
   font-size: large;
-  list-style-type: decimal;
+  list-style-type: none;
 }
 
 #graphset-info-list li {
   margin-bottom: 1rem;
+}
+
+#centroid-info * {
+  font-size: large;
+  padding-left: 2.5rem;
 }
