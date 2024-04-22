@@ -113,7 +113,7 @@ It wasn't long before I switched to Java for a bit more speed, and flexibility f
 
 The p5.js sketch included in `finding_centroids.js` renders a configurable (see: `constants.js`) numbers of vertices on a 2D cartesian grid, and calculates the average of the points. The average is displayed as a centroid (in cyan), and the vertices are displayed numbered (in orange).
 
-In order to get this running locally fork and clone this repository. Run `npm install` to install all of the require node dependencies, and then run `npm run dev` to start the local vite server. The default url will be used unless otherwise configured, and you should be provided that link in the terminal output.
+In order to get this running locally fork and clone this repository. Run `npm install` to install all of the required node dependencies, and then run `npm run dev` to start the local vite server. The default url will be used unless otherwise configured, and you should be provided that link in the terminal output to open a tab in the browser.
 
 ## References
 
