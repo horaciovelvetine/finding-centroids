@@ -10,11 +10,11 @@ class Graphset2D {
     const { vertices, edges } = this;
 
     edges.forEach((edge, i) => {
-      if (SHOW_STRENGTH_RADIUS) {
-        edge.drawStrengthRadius();
-      }
       if (SHOW_MEAN_VERTEX_CONNECTING_LINE) {
         edge.drawMeanVertexConnectingLine();
+      }
+      if (SHOW_STRENGTH_RADIUS) {
+        edge.drawStrengthRadius();
       }
     })
 
