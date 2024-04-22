@@ -10,20 +10,25 @@ class Vertex2D {
    * @param {number} x - The x-coordinate of the vertex.
    * @param {number} y - The y-coordinate of the vertex.
    */
-  constructor(p5, x, y) {
+  constructor(p5, x, y, color) {
     this.p5 = p5;
     this.x = x;
     this.y = y;
+    this.color = color;
   }
 
   /**
    * Draws the vertex on the canvas.
    */
   draw() {
-    const { x, y, p5 } = this;
-    p5.fill(255, 0, 0);
+    const { x, y, p5, color } = this;
+    if (color) {
+      p5.fill(color);
+    } else {
+      p5.fill(200, 170, 50, 255)
+    }
     p5.ellipse(x, y, VERTEX_RADIUS, VERTEX_RADIUS);
   }
 }
 
-export default Vertex;
+export default Vertex2D;
