@@ -74,11 +74,11 @@ Where:
 
 This formula represents the sum of each value multiplied by its corresponding weight, divided by the sum of all weights. But programatically, this is just a simple division and multiplication, the notation merely provides a means of expressing that were performing this operation over a **set** of values.
 
-The above expression has a few different ways of being written, but I prefer the above as its the most explicit, and can each member of the equation can be pretty explicitly linked to the code and help with visualization:
+The above expression has a few different ways of being written, but I prefer the above as its the most explicit, and can each member of the equation can be pretty explicitly linked to the code and helped with visualization:
 
 <img src="public/wmeans_3_vertices_2d_with_strength_radius.png">
 
-In the above image, the vertices are represented as orange circles, and the weighted mean is represented as a cyan circle. The strength of the relationship between the vertices is represented by the radius of the outer circle, and the weight of the vertices are listed in the sidebar.
+In the above image, the vertices are represented as orange circles, and the weighted mean is represented as a cyan circle. The strength of the relationship between the vertices is represented by the radius of the outer circle, and the weight of the vertices are listed in the sidebar. Provided a visual example of the math in action and real world values, the math is suddenly much more approachable, bordering on intuitive as expressed above.
 
 ## Extending the Math
 
@@ -102,7 +102,11 @@ Given the ability to calculate a weighted means, the next step was integrating i
 ```
 The intent was to then recursively apply the same process to each of the `n` vertices, until there was a solution for the entire set (where `n` would be some set size limitation tbd). While this was a sort of solution, it had a variety conceptual holes, and was not a complete solution by any means. 
 
-In googling about finding the mean of a [x,y] dataset I found some information about a statistacal method called [K-Means Clustering](https://en.wikipedia.org/wiki/K-means_clustering). In statistics K-Means clustering is a method of grouping a large dataset into smaller groups, and can provide insight into relationships between individual members of the data that arent immediately apparent. This provided a new direction, as well as playing with a js implementation I found here: [K-Means Clustering in JS](https://github.com/stevemacn/kmeans). 
+In googling about finding the mean of a [x,y] dataset I found some information about a statistacal method called [K-Means Clustering](https://en.wikipedia.org/wiki/K-means_clustering). In statistics K-Means clustering is a method of grouping a large dataset into smaller groups, and can provide insight into relationships between individual members of the data that arent immediately apparent. This provided a new direction, as well as playing with a js implementation I found here: [K-Means Clustering in JS](https://github.com/stevemacn/kmeans). In addition to exploring K-Means clustering I explored some alternative means of displaying visuals, and given my background in React, I found a library called [D3.js](https://d3js.org/), and hilariously this example of the movie Les Miserables: [D3.js Force Directed Graph](https://observablehq.com/@d3/force-directed-graph), when I first stumbled upon the term I didn't know I was looking for - *Force-directed graph*.
+
+It wasn't long before I switched to Java for a bit more speed, and flexibility for handling large datasets (and I was learning Spring & Spring-Shell), and I found a library called [JUNG](https://jung.sourceforge.io/), to arrive at the tools I will be leveraging to continue exploring this topic, and trying to create Wikipedia in 3D space
+
+[Read More: Force Drawn Graphs](https://github.com/horaciovelvetine/ForceDrawnGraphs)
 
 ## Running The Visualization
 <img src="./public/wmean_3_vertices_2d_visual.png">
