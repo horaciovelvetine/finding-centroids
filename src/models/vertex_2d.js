@@ -3,7 +3,7 @@ import { VERTEX_RADIUS } from "../constants";
 /**
  * Represents a vertex in a graph.
  */
-class Vertex {
+class Vertex2D {
   /**
    * Creates a new instance of the Vertex class.
    * @param {p5} p5 - The p5.js instance.
@@ -20,8 +20,9 @@ class Vertex {
    * Draws the vertex on the canvas.
    */
   draw() {
-    this.p5.fill(255, 0, 0);
-    this.p5.ellipse(this.x, this.y, VERTEX_RADIUS, VERTEX_RADIUS);
+    const { x, y, p5 } = this;
+    p5.fill(255, 0, 0);
+    p5.ellipse(x, y, VERTEX_RADIUS, VERTEX_RADIUS);
   }
 }
 
