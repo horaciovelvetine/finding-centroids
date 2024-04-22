@@ -1,3 +1,7 @@
+/**
+ * Displays a Cartesian grid in a 2D canvas.
+ * @param {p5} p5 - The p5 instance.
+ */
 import { GRID_SPACING } from '../constants';
 
 export default function DisplayCartesianGrid(p5) {

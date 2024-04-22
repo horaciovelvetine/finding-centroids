@@ -1,3 +1,8 @@
+/**
+ * Displays a 2D Cartesian axis using the p5.js library.
+ *
+ * @param {p5} p5 - The p5.js instance.
+ */
 export default function DisplayCartesianAxis2D(p5) {
   const xAxisColor = p5.color(255, 0, 0, 200);
   const yAxisColor = p5.color(0, 255, 0, 200);
