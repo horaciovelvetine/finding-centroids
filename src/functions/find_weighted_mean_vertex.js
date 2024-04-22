@@ -27,15 +27,15 @@ export default function FindWeightedMeanVertex(p5, graphset) {
     sumWeight += vertexWeight;
   }
 
-  const meanAvgX = sumX / sumWeight;
-  const meanAvgY = sumY / sumWeight;
+  const meanAvgX = Math.round(sumX / sumWeight);
+  const meanAvgY = Math.round(sumY / sumWeight);
 
   let totalDistance = 0;
   for (let vertex of graphset.vertices) {
     totalDistance += p5.dist(vertex.x, vertex.y, meanAvgX, meanAvgY);
   }
 
-  const meanScore = totalDistance / graphset.vertices.length;
+  const meanScore = Math.floor(totalDistance / graphset.vertices.length);
   meanVertex.x = meanAvgX;
   meanVertex.y = meanAvgY;
   meanVertex.draw();

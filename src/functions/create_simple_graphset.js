@@ -1,12 +1,11 @@
 import { TOTAL_GRAPHSET_VERTICES } from "../constants";
-import Edge2D from "../models/edge_2d";
-import Vertex2D from "../models/vertex_2d";
+import { Graphset2D, Vertex2D, Edge2D } from "../models";
 import GetRandom2DCoordinates from "./get_random_2d_coordinates";
 
 /**
  * Creates a simple graph set of randomly generated vertices and edges.
  * @param {p5} p5 - The p5 instance.
- * @returns {Object} - An object containing the vertices and edges of the graph set.
+ * @returns {Graphset2D} - A container object containing the vertices and edges of the graph set.
  */
 export default function CreateSimpleGraphset(p5) {
   let vertices = [];
@@ -21,5 +20,5 @@ export default function CreateSimpleGraphset(p5) {
     const relatedEdge = new Edge2D(p5, null, vertex, Math.floor(p5.random(1, 30)));
     edges.push(relatedEdge);
   }
-  return { vertices, edges }
+  return new Graphset2D(vertices, edges);
 }
