@@ -7,21 +7,20 @@ class Graphset2D {
   }
 
   draw() {
-    for (let edge of this.edges) {
+    const { vertices, edges } = this;
+
+    edges.forEach((edge, i) => {
       if (SHOW_STRENGTH_RADIUS) {
         edge.drawStrengthRadius();
       }
-    }
-
-    for (let edge of this.edges) {
       if (SHOW_MEAN_VERTEX_CONNECTING_LINE) {
         edge.drawMeanVertexConnectingLine();
       }
-    }
+    })
 
-    for (let vertex of this.vertices) {
-      vertex.draw();
-    }
+    vertices.forEach((vertex, i) => {
+      vertex.draw(i + 1);
+    });
   }
 }
 
