@@ -3,6 +3,7 @@ import DisplayCartesianAxis2D from "./components/display_cartesian_axis_2d";
 import DisplayCartesianGrid from "./components/display_cartesian_grid_2d";
 import CreateSimpleGraphset from "./functions/create_simple_graphset";
 import FindWeightedMeanVertex from "./functions/find_weighted_mean_vertex";
+import DisplayGraphsetInfo from "./components/display_graphset_info";
 
 let graphset;
 
@@ -18,7 +19,7 @@ export const findingCentroids = (p5) => {
     // Display UI Components
     DisplayCartesianAxis2D(p5);
     DisplayCartesianGrid(p5);
-    
+
     // Display and Calculate the Graphset
     graphset = CreateSimpleGraphset(p5); // Create a randomly generated graphset
     let weightedMeanResults = FindWeightedMeanVertex(p5, graphset);
@@ -31,7 +32,8 @@ export const findingCentroids = (p5) => {
       edge.drawStrengthRadius();
       edge.drawMeanVertexConnectingLine();
     }
-    console.log(weightedMeanResults);
-    
+
+    DisplayGraphsetInfo(graphset);
+
   }
 }
