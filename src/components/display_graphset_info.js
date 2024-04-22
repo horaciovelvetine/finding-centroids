@@ -5,11 +5,11 @@
 export default function DisplayGraphsetInfo(graphset) {
   const sidebarInfoContainer = document.getElementById('graphset-info-list');
   const { vertices, edges } = graphset;
-  const graphInfo = vertices.map((vertex) => {
+  const graphInfo = vertices.map((vertex, i) => {
     const { x, y } = vertex;
     const edge = edges.find((e) => e.target === vertex);
     const weight = edge ? edge.weight : '';
-    return `Vertex (${x}, ${y}) - Weight: ${weight}`;
+    return `Vertex ` + (i + 1) + `: (${x}, ${y}, weight: ${weight})`;
   });
 
   graphInfo.forEach((info) => {
