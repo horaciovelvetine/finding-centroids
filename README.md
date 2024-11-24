@@ -1,12 +1,13 @@
-<div align="center">
+<div align=center>
   <h1>finding-centroids</h1>
-  <h3>A p5.js sketch to visualize 2D weighted-means calculation</h3>
-  <img src="./public/wmean_12_vertices_2d_visual.png" alt="2D cartesian graph with 12 points, and their calculated average">
+  <h3>A p5.js sketch to visualize 2D weighted-means calculation as a means of creating a layout for a random graphset. This is only a potential solution for <a href=https://github.com/horaciovelvetine/wikidata-universe-client>the Wikiverse project</a>. Ultimately the field of <a href=https://en.wikipedia.org/wiki/Graph_theory>Graph Theory</a> has solved these problems with a variety of innovations, solutions, and optimizations, but the barrier to entry can be intimidating without a background in math. This solution contains intuitive and simple math which is a great bridge towards Graph Theory based solutions, and should help develop an intuitive understanding of how layouts are created.
+  </h3>
 </div>
 
-A p5.js sketch visualization of finding the average (or centroid) of a set of weighted points on a 2D cartesian grid. This repository contains the code for the sketch as well as a brief explanation of the math behind the centroid calculation, but is only a small part of [Force Drawn Graphs](https://github.com/horaciovelvetine/ForceDrawnGraphs). This concept was the first step in the development of the Force Drawn Graphs project, and led to my subsequent discovery of K-Means Clustering, Graphs, and solutions already implemented such as the Kamada-Kawai, and Fruchterman-Reingold algorithms. 
-
-The math here is strikingly simple, and the intent is to provide a means of bridging the problem solving process towards more complex solutions. 
+<ul align=center>
+  <img src=public/wikipedia_in3D_v0.0.1.png width=900>
+  <img src=public/wmean_12_vertices_2d_visual.png width=900>
+</ul>
 
 ## The Problem
 Given a set of `vertices`, each with [x,y] coordinates, and a matching set of `edges` with weights, what is the best way to calculate an average point which best represents the entire set? 
@@ -14,7 +15,7 @@ Given a set of `vertices`, each with [x,y] coordinates, and a matching set of `e
 ## The Components of the Problem
 
 - "A set of vertices" can be any length, but will always have 3 attributes which are important to the calculation: `x`, `y`, and `weight`.
-- Weight can be thought of as the importance of the vertex in the calculation of the centroid, and in the larger context of [FDG](https://github.com/horaciovelvetine/ForceDrawnGraphs) a way of representing the strength of the relationship between two Wikipedia entries.
+- Weight can be thought of as the importance of the related vertices position in the calculation of the centroid, and somewhat analagous to the strength of the relationship between two vertices. The stronger the relationship, the closer those two vertices should be positioned.
 - 'calculate an average' is a bit of a misnomer, as the centroid is not necessarily the average of the points, but rather the point which minimizes the sum of the squared distances between itself and all other points or, **"best represents the entire set"**. However, the math to arrive at the solution is the same as calculating any average, with a minor adjustment to account for the weights, and is easy find.
 
 ## The Math
@@ -66,6 +67,7 @@ The weighted mean of a set of values is given by:
 
 $$ \bar{x} = \frac{\sum_{i=1}^{n} w_i x_i}{\sum_{i=1}^{n} w_i} $$
 
+
 Where:
 - $\bar{x}$ is the weighted mean,
 - $w_i$ are the weights,
@@ -82,31 +84,121 @@ In the above image, the vertices are represented as orange circles, and the weig
 
 ## Extending the Math
 
-The larger context of this intended solution can be found in the [Force Drawn Graphs](https://github.com/horaciovelvetine/ForceDrawnGraphs) repository. The fundamental math here of finding the weighted mean was the first step in finding a solution to the problem of building a visual representation of the relationships between Wikipedia articles. In my process, I had no idea that this was a solved problem, and a branch of mathematics called [Graph Theory](https://en.wikipedia.org/wiki/Graph_theory#:~:text=In%20mathematics%2C%20graph%20theory%20is,arcs%2C%20links%20or%20lines). But the how of A -> Graph Theory is normally the part of the story that is omitted, and I wanted to provide a better understanding of the problem solving process.
-
-Given the ability to calculate a weighted means, the next step was integrating it into a larger solution, and since this was never actual code, lets pseudo code it.
-
-```javascript
-  const WikipediaGraphset = GetWikipediaGraphsetFromTBD();
-  const centerOfTheUniverse = findKevinBacon(WikipediaGraphset); // using kevin bacon as a placeholder for the center of the universe "[0,0]"
-
-  for (Edge edge in centerOfTheUniverse.edges()) { // iterate over starting vertex edges
-    const vertex = edge.targetVertex(); // gets target vertex of edge
-    const weight = edge.weight(); // gets weight of the relevant edge edge
-    const weightedMean = findWeightedAverage(vertex.edges()); // set it in the center of the new 'universe'
-    const distance = calculateDistance(centerOfTheUniverse, weightedMean); // calculate the distance between the two original points
-    const force = calculateForce(distance, weight); // calculate the force between the two points
-    applyForceToVertex(vertex, force); // apply the force to the vertex to plot it back in the original universe
-  }
-
-```
-The intent was to then recursively apply the same process to each of the `n` vertices, until there was a solution for the entire set (where `n` would be some set size limitation tbd). While this was a sort of solution, it had a variety conceptual holes, and was not a complete solution by any means. 
+The fundamental math here of finding the weighted mean is a potential  first step in finding a solution to the problem of building a visual representation of the relationships between Wikipedia articles. In my process, I had no idea that this was a solved problem, and a branch of mathematics called [Graph Theory](https://en.wikipedia.org/wiki/Graph_theory#:~:text=In%20mathematics%2C%20graph%20theory%20is,arcs%2C%20links%20or%20lines). But the how of A -> Graph Theory is normally the part of the story that is omitted, and I wanted to provide a better understanding of the problem solving process.
 
 In googling about finding the mean of a [x,y] dataset I found some information about a statistacal method called [K-Means Clustering](https://en.wikipedia.org/wiki/K-means_clustering). In statistics K-Means clustering is a method of grouping a large dataset into smaller groups, and can provide insight into relationships between individual members of the data that arent immediately apparent. This provided a new direction, as well as playing with a js implementation I found here: [K-Means Clustering in JS](https://github.com/stevemacn/kmeans). In addition to exploring K-Means clustering I explored some alternative means of displaying visuals, and given my background in React, I found a library called [D3.js](https://d3js.org/), and hilariously this example of the movie Les Miserables: [D3.js Force Directed Graph](https://observablehq.com/@d3/force-directed-graph), when I first stumbled upon the term I didn't know I was looking for - *Force-directed graph*.
 
-It wasn't long before I switched to Java for a bit more speed, and flexibility for handling large datasets (and I was learning Spring & Spring-Shell), and I found a library called [JUNG](https://jung.sourceforge.io/), to arrive at the tools I will be leveraging to continue exploring this topic, and trying to create Wikipedia in 3D space
+It wasn't long before I switched to Java for a bit more speed, and flexibility for handling large datasets (and I was learning Spring & Spring-Shell), and I found a (no longer maintained) library called [JUNG](https://jung.sourceforge.io/), which led to the current fork of [Java Universal Network/GraphFramework](https://github.com/jrtom/jung). You can read more about how this all is incorporated into <a href=https://github.com/horaciovelvetine/wikidata-universe-client>the Wikiverse</a> including additional resources, code examples, and documentation in my docs here <a href=https://github.com/horaciovelvetine/horaciovelvetine>@horeaciovelvetine</a>
 
-[Read More: Force Drawn Graphs](https://github.com/horaciovelvetine/ForceDrawnGraphs)
+## Some Java Code
+
+The original idea for attempting to layout a graph relied on a relatively simlply idea, using weighted means to calculate the best fit for a 'centroid'. And with a little bit of algebra and the recursive brute force math engine that is a computer, is an applicable solution to the layout problem. The beauty of this solution (in my humble opinion) is in it's approachability and easily iterable complexity as an introduction to a number of other interesting fields like Graph Theory.    
+
+<a href=https://en.wikipedia.org/wiki/W._T._Tutte>William Thomas Tuttle</a> is a mathmetician, code breaker and educator responsible for a number of breakthroughs in... let's go with Science & Engineering. His passion for learning and reasearch make it tremendously hard to narrow his contributions in relation to this application, especially given my limited understanding of his contributions (which span an almost comical number of fields), but - without a 'Tutte Polynomial' Graph Theory as a modern field would be very different. His work in the drawing, layout, and analysis of weighted graphs in particular are likely originating sources for much of the approach outlined below, and throughout this application. 
+
+```java
+public class GraphLayout {
+    static class Node {
+        String name;
+        double[] position;
+
+        public Node(String name) {
+            this.name = name;
+            this.position = new double[2]; // x, y positions
+        }
+    }
+
+    static class Edge {
+        Node to;
+        double weight;
+
+        public Edge(Node to, double weight) {
+            this.to = to;
+            this.weight = weight;
+        }
+    }
+
+    public static void weightedMeansLayout() {
+        Map<String, Node> nodes = new HashMap<>();
+        Map<Node, List<Edge>> graph = new HashMap<>();
+
+        // Create nodes
+        nodes.put("A", new Node("A"));
+        nodes.put("B", new Node("B"));
+        nodes.put("C", new Node("C"));
+
+        
+        Random rand = new Random(); // init random positions...
+        for (Node node : nodes.values()) {
+            node.position[0] = rand.nextDouble();
+            node.position[1] = rand.nextDouble();
+        }
+
+        // Create graph connections
+        graph.put(nodes.get("A"), List.of(new Edge(nodes.get("B"), 2), new Edge(nodes.get("C"), 3)));
+        graph.put(nodes.get("B"), List.of(new Edge(nodes.get("A"), 2), new Edge(nodes.get("C"), 4)));
+        graph.put(nodes.get("C"), List.of(new Edge(nodes.get("A"), 3), new Edge(nodes.get("B"), 4)));
+
+        // Main loop for position adjustment
+        for (int i = 0; i < 100; i++) { // Run for 100 iterations
+            for (Node node : nodes.values()) {
+                double[] newPosition = {0, 0};
+                double totalWeight = 0;
+
+                for (Edge edge : graph.get(node)) {
+                    newPosition[0] += edge.to.position[0] * edge.weight;
+                    newPosition[1] += edge.to.position[1] * edge.weight;
+                    totalWeight += edge.weight;
+                }
+
+                if (totalWeight > 0) {
+                    node.position[0] = newPosition[0] / totalWeight;
+                    node.position[1] = newPosition[1] / totalWeight;
+                }
+            }
+        }
+    }
+}
+```
+
+# Key Takeaways:
+
+This approach suffers from a lack of stability - with no controls in place each Node is freely able to traverse the layout any distance on any iteration. Then at the same time it has the opposite problem where it's likely to find a stable solution early and become stuck with a relatively bad layout. More modern approaches include cooling factors, repulsive forces, and convergence criteria to improve layouts and prevent issues known to cause bad solutions. There are also some glaringly lacking functionality limitation issues inside this graph which would be even more costly (computationally) to add to an already pretty expensive approach. 
+
+That being said, this approach serves as an important stepping stone into the ideas, methods, and practices used to improve on the results. Broadly speaking, implementing something like a cooling factor with this as a starting point would require a simple definition for anyone to implement from this code as a starting point.
+
+- **Cooling Factor:** A numerical representation of the overall "heat" of the system, where the cooler the system the smaller the (allowed) adjustments made to each node become. Assume this system cools non-linearly. 
+
+A simple implementation of this adds no more than 5 lines of code in the main loop, with further obvious optimizations to be made simply around the degree cooling factor used:
+
+# Simple Cooling Factor:
+
+```java
+  double temperature = 1.0; // Initial temperature
+  double coolingFactor = 0.95; // Cooling factor
+
+  // Main loop for position adjustment
+  for (int i = 0; i < 100; i++) { // Run for 100 iterations
+      for (Node node : nodes.values()) {
+          double[] newPosition = {0, 0};
+          double totalWeight = 0;
+
+          for (Edge edge : graph.get(node)) {
+              newPosition[0] += edge.to.position[0] * edge.weight;
+              newPosition[1] += edge.to.position[1] * edge.weight;
+              totalWeight += edge.weight;
+          }
+
+          if (total, weight > 0) {
+              node.position[0] = (node.position[0] + temperature * (newPosition[0] / totalWeight)) / (1 + temperature);
+              node.position[1] = (node.position[1] + temperature * (newPosition[1] / totalWeight)) / (1 + temperature);
+          }
+      }
+      temperature *= coolingFactor; // Reduce the temperature
+  }
+```
+
+Starting from a weighted means base and with 5 lines of code this optimization improves accuracy while adding no more mathmatic complexity then simple arithmatic. However the importance, at least in terms of thought process in applying "physical" principles to an otherwise not-physical system, cannot be overlooked! 
 
 ## Running The Visualization
 <img src="./public/wmean_3_vertices_2d_visual.png">
@@ -115,10 +207,8 @@ The p5.js sketch included in `finding_centroids.js` renders a configurable (see:
 
 In order to get this running locally fork and clone this repository. Run `npm install` to install all of the required node dependencies, and then run `npm run dev` to start the local vite server. The default url will be used unless otherwise configured, and you should be provided that link in the terminal output to open a tab in the browser.
 
-## References
+## Additional References, Code and Reading
 
-- [Stack Exchange:The correct formula for weighted average](https://stats.stackexchange.com/questions/401114/the-correct-formula-for-weighted-average)
-- [Wolfram MathWorld: Weighted Mean](https://mathworld.wolfram.com/WeightedMean.html)
 - [Wikipedia Weighted Arithmetic Mean](https://en.wikipedia.org/wiki/Weighted_arithmetic_mean)
 - [Naive Sharding in K-Means Initialization](https://www.kdnuggets.com/2017/03/naive-sharding-centroid-initialization-method.html)
 - [Implementing K-Means Clustering From Scratch in Javascript](https://medium.com/geekculture/implementing-k-means-clustering-from-scratch-in-javascript-13d71fbcb31e)
